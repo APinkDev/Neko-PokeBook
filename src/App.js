@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
-import onSearch from "./components/Searchbar";
 import Pokedex from "./components/Pokedex";
 import { getPokemons, getPokemonData, searchPokemon } from "./api";
 import { FavoriteProvider } from "./contexts/favoritesContext";
@@ -17,7 +16,15 @@ export default function App() {
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [favorites, setFavorites] = useState([]);
-  const [notFound, setNotFound] = useState(false);
+  const [setNotFound] = useState(false);
+
+  useEffect(() => {
+    loadFavoritePokemons();
+  }, []);
+
+  useEffect(() => {
+    fetchPokemons();
+  }, [page]); // <---esto es para que solo se llame una vez
 
   const fetchPokemons = async () => {
     setLoading(true);
@@ -39,14 +46,6 @@ export default function App() {
       JSON.parse(window.localStorage.getItem(localStorageKey)) || [];
     setFavorites(pokemons);
   };
-
-  useEffect(() => {
-    loadFavoritePokemons();
-  }, []);
-
-  useEffect(() => {
-    fetchPokemons();
-  }, [page]); // <---esto es para que solo se llame una vez
 
   const updateFavoritePokemons = (name) => {
     const updated = [...favorites];

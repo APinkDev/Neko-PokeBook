@@ -25,6 +25,7 @@ export default function App() {
   useEffect(() => {
     fetchPokemons();
     loadFavoritePokemons();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]); // <---esto es para que solo se llame una vez
 
   const fetchPokemons = async () => {

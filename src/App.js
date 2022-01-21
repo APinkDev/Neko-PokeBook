@@ -18,12 +18,13 @@ export default function App() {
   const [favorites, setFavorites] = useState([]);
   const [setNotFound] = useState(false);
 
-  useEffect(() => {
-    loadFavoritePokemons();
-  }, []);
+  // useEffect(() => {
+  //   loadFavoritePokemons();
+  // }, []);
 
   useEffect(() => {
     fetchPokemons();
+    loadFavoritePokemons();
   }, [page]); // <---esto es para que solo se llame una vez
 
   const fetchPokemons = async () => {
